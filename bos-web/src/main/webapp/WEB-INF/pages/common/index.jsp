@@ -137,6 +137,8 @@
 			}
 		}
 	};
+
+
 	// 退出登录
 	function logoutFun() {
 		$.messager
@@ -146,14 +148,40 @@
 			}
 		});
 	}
+
+
 	// 修改密码
 	function editPassword() {
 		$('#editPwdWindow').window('open');
 	}
+
+
 	// 版权信息
 	function showAbout(){
 		$.messager.alert("宅急送 v1.0","管理员邮箱: zqx@itcast.cn");
 	}
+
+
+	//修改密码的表单校验
+	$("#btnEp").click(function () {
+		var v = $("#editPasswordForm").form("validate");
+		if(v){
+		    var v1=$("#txtNewPass").val();
+		    var v2=$("#txtRePass").val();
+		    if(v1==v2){
+		        $.post("userAction_editPassword.action",{"password":v1},function (data) {
+					if(data =='1'){
+					    $("#editPwdWindow").window("close");
+					}else{
+					    $.messager.alert("提示信息","密码修改失败","error");
+					}
+                })
+
+			}else {
+		        $.messager.alert("提示信息","两次密码输入不一致！","warming");
+			}
+		}
+    })
 </script>
 </head>
 <body class="easyui-layout">
@@ -231,11 +259,13 @@
                 <table cellpadding=3>
                     <tr>
                         <td>新密码：</td>
-                        <td><input id="txtNewPass" type="Password" class="txt01" /></td>
+                        <td><input required="true" data-options="validType:'length[4,6]'" id="txtNewPass"
+								   type="Password" class="txt01 easyui-validatebox" /></td>
                     </tr>
                     <tr>
                         <td>确认密码：</td>
-                        <td><input id="txtRePass" type="Password" class="txt01" /></td>
+                        <td><input required="true" data-options="validType:'length[4,6]'" id="txtRePass"
+								   type="Password" class="txt01 easyui-validatebox" /></td>
                     </tr>
                 </table>
             </div>
@@ -246,4 +276,33 @@
         </div>
     </div>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

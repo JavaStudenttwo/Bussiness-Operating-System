@@ -7,4 +7,5 @@ public interface IUserService {
 
 	public User login(User model);
 
+    void editPassword(String id, String password);
 }

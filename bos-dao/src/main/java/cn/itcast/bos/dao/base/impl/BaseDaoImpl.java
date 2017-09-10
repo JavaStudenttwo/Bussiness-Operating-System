@@ -3,10 +3,13 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Queue;
 
 import javax.annotation.Resource;
 
 import cn.itcast.bos.dao.base.IBaseDao;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
@@ -53,4 +56,29 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		String hql = "FROM " + entityClass.getSimpleName();
 		return (List<T>) this.getHibernateTemplate().find(hql);
 	}
+
+	@Override
+	public void executeUpdate(String queryName, Object... objects) {
+		Session session = this.getSessionFactory().getCurrentSession();
+		Query query = session.getNamedQuery(queryName);
+		int i = 0;
+		for (Object object:objects){
+			query.setParameter(i++,object);
+		}
+		query.executeUpdate();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

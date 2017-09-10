@@ -27,22 +27,29 @@
 	src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
+
+
 	function doAdd(){
 		//alert("增加...");
 		$('#addStaffWindow').window("open");
 	}
-	
+
+
 	function doView(){
 		alert("查看...");
 	}
-	
+
+
 	function doDelete(){
 		alert("删除...");
 	}
-	
+
+
 	function doRestore(){
 		alert("将取派员还原...");
 	}
+
+
 	//工具栏
 	var toolbar = [ {
 		id : 'button-view',	
@@ -65,6 +72,8 @@
 		iconCls : 'icon-save',
 		handler : doRestore
 	}];
+
+
 	// 定义列
 	var columns = [ [ {
 		field : 'id',
@@ -114,7 +123,8 @@
 		width : 200,
 		align : 'center'
 	} ] ];
-	
+
+
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果
 		$("body").css({visibility:"visible"});
@@ -145,22 +155,35 @@
 	        height: 400,
 	        resizable:false
 	    });
+
+		var reg = /^1[3|4|5|7|8|][0-9]{9}$/;
+		$.extend($.fn.validatebox.defaults.rules,{
+		    telephone:{
+		        validator:function (value,param) {
+		            return reg.test(value);
+                },
+				message:'手机号输入有误！'
+			}
+		})
 		
 	});
+
 
 	function doDblClickRow(rowIndex, rowData){
 		alert("双击表格数据...");
 	}
+
 </script>	
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
 	<div region="center" border="false">
     	<table id="grid"></table>
 	</div>
-	<div class="easyui-window" title="对收派员进行添加或者修改" id="addStaffWindow" collapsible="false" minimizable="false" maximizable="false" style="top:20px;left:200px">
+	<div class="easyui-window" title="啊啊啊啊啊" id="addStaffWindow" collapsible="false"
+		 			minimizable="false" maximizable="false" style="top:20px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
-				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true" >保存</a>
+				<a id="save" icon="icon-save" href="${pageContext.request.contextPath}/sendstuffAction_addStuff.action" class="easyui-linkbutton" plain="true" >保存</a>
 			</div>
 		</div>
 		
@@ -181,7 +204,8 @@
 					</tr>
 					<tr>
 						<td>手机</td>
-						<td><input type="text" name="telephone" class="easyui-validatebox" required="true"/></td>
+						<td><input type="text" data-options="validType:'telephone'"
+								   name="telephone" class="easyui-validatebox" required="true"/></td>
 					</tr>
 					<tr>
 						<td>单位</td>
