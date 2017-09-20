@@ -25,6 +25,7 @@ public class StuffServiceImpl implements StuffService {
      */
     @Override
     public void addStuff(TStuff model) {
+
         stuffDao.save(model);
     }
 }

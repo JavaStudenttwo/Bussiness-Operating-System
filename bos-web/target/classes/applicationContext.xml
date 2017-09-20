@@ -15,7 +15,7 @@
 	
 	<!-- 加载属性文件 -->
 	<context:property-placeholder location="classpath:db.properties"/>
-				
+
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${jdbc.driverClass}"/>
@@ -56,4 +56,17 @@
 	<context:annotation-config/>
 	
 	<tx:annotation-driven/>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </beans>

@@ -16,14 +16,12 @@ import org.springframework.stereotype.Controller;
 @Scope("prototype")
 public class SendstuffAction extends BaseAction<TStuff>{
 
-
-
     @Autowired
     StuffService stuffService = new StuffServiceImpl();
 
 //    添加取派员
     public String addStuff(){
-        stuffService.addStuff(model);
+//        stuffService.addStuff(model);
         return "ADD";
     }
 

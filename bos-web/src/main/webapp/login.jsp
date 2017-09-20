@@ -46,46 +46,43 @@ input[type=password] {
 </script>
 </head>
 <body>
-	<div
-		style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: -280px;">
+	<div style="width: 900px; height: 50px; position: absolute; text-align: left; left: 50%; top: 50%; margin-left: -450px;; margin-top: -280px;">
 		<span style="float: right; margin-top: 35px; color: #488ED5;">新BOS系统，致力于便捷、安全、稳定等方面的客户体验</span>
 	</div>
-	<div class="main-inner" id="mainCnt"
-		style="width: 900px; height: 440px; overflow: hidden; position: absolute; left: 50%; top: 50%; margin-left: -450px; margin-top: -220px; background-image: url('${pageContext.request.contextPath }/images/bg_login.jpg')">
-		<div id="loginBlock" class="login"
-			style="margin-top: 80px; height: 255px;">
+	<div class="main-inner" id="mainCnt" style="width: 900px; height: 440px; overflow: hidden; position: absolute; left: 50%; top: 50%; margin-left: -450px; margin-top: -220px; background-image: url('${pageContext.request.contextPath }/images/bg_login.jpg')">
+		<div id="loginBlock" class="login" style="margin-top: 80px; height: 255px;">
+
 			<div class="loginFunc">
 				<div id="lbNormal" class="loginFuncMobile">员工登录</div>
 			</div>
+
 			<div class="loginForm">
-				<form id="loginform" name="loginform" method="post" class="niceform"
-					action="userAction_login.action">
-					<div id="idInputLine" class="loginFormIpt showPlaceholder"
-						style="margin-top: 5px;">
-						<input id="loginform:idInput" type="text" name="username"
-							class="loginFormTdIpt" maxlength="50" />
-						<label for="idInput" class="placeholder" id="idPlaceholder">帐号：</label>
+				<form id="loginform" name="loginform" method="post" class="niceform" action="userAction_login.action">
+					<div id="idInputLine" class="loginFormIpt showPlaceholder" style="margin-top: 5px;">
+						<input id="loginform:idInput" type="text" name="username" class="loginFormTdIpt" maxlength="50" />
+						<label for="loginform:idInput" class="placeholder" id="idPlaceholder">帐号：</label>
 					</div>
+
 					<div class="forgetPwdLine"></div>
+
 					<div id="pwdInputLine" class="loginFormIpt showPlaceholder">
-						<input id="loginform:pwdInput" class="loginFormTdIpt" type="password"
-							name="password" value="" />
-						<label for="pwdInput" class="placeholder" id="pwdPlaceholder">密码：</label>
+						<input id="loginform:pwdInput" class="loginFormTdIpt" type="password" name="password" value="" />
+						<label for="loginform:pwdInput" class="placeholder" id="pwdPlaceholder">密码：</label>
 					</div>
-					<div class="loginFormIpt loginFormIptWiotTh"
-						style="margin-top:58px;">
-						<div id="codeInputLine" class="loginFormIpt showPlaceholder"
-							style="margin-left:0px;margin-top:-40px;width:50px;">
-							<input id="loginform:codeInput" class="loginFormTdIpt" type="text"
-								name="checkcode" title="请输入验证码" />
+
+					<div class="loginFormIpt loginFormIptWiotTh" style="margin-top:58px;">
+						<div id="codeInputLine" class="loginFormIpt showPlaceholder" style="margin-left:0px;margin-top:-40px;width:50px;">
+							<input id="loginform:codeInput" class="loginFormTdIpt" type="text" name="checkcode"
+								   title="请输入验证码" />
 							<img id="loginform:vCode" src="${pageContext.request.contextPath }/validatecode.jsp"
 								onclick="javascript:document.getElementById('loginform:vCode').src='${pageContext.request.contextPath }/validatecode.jsp?'+Math.random();" />
 						</div>
-						<a onclick="document.getElementById('loginform').submit();" href="#" id="loginform:j_id19" name="loginform:j_id19">
-						<span
-							id="loginform:loginBtn" class="btn btn-login"
-							style="margin-top:-36px;">登录</span>
+
+						<a onclick="document.getElementById('loginform').submit();"
+						   id="loginform:j_id19" name="loginform:j_id19">
+							<span id="loginform:loginBtn" class="btn btn-login" style="margin-top:-36px;">登录</span>
 						</a>
+
 					</div>
 					<div align="center">
 						<br/>

@@ -1,13 +1,14 @@
 package cn.itcast.bos.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by 13718 on 2017/9/10.
  */
 @Entity
-@Table(name = "t_stuff", schema = "bos", catalog = "")
-public class TStuff {
+@Table(name = "t_stuff", schema = "bos")
+public class TStuff implements Serializable {
     private String id;
     private String name;
     private Integer telephone;
