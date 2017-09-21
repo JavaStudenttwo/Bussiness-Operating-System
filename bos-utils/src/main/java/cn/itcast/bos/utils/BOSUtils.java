@@ -1,6 +1,7 @@
 package cn.itcast.bos.utils;
 
 import cn.itcast.bos.domain.User;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +17,6 @@ public class BOSUtils {
     public static User getLoginUser(){
         return (User)getSession().getAttribute("loginUser");
     }
-
 
 
 

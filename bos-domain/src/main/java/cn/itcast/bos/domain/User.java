@@ -1,125 +1,142 @@
 package cn.itcast.bos.domain;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Date;
 
-/**
- * User entity. @author MyEclipse Persistence Tools
- */
+@Entity
+@Table(name = "t_user", schema = "bos")
+public class User {
+    private String id;
+    private String username;
+    private String password;
+    private Double salary;
+    private Date birthday;
+    private String gender;
+    private String station;
+    private String telephone;
+    private String remark;
 
-public class User implements java.io.Serializable {
+    @Id
+    @Column(name = "id", nullable = false, length = 32)
+    public String getId() {
+        return id;
+    }
 
-	// Fields
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	private String id;
-	private String username;
-	private String password;
-	private Double salary;
-	private Date birthday;
-	private String gender;
-	private String station;
-	private String telephone;
-	private String remark;
+    @Basic
+    @Column(name = "username", nullable = false, length = 20)
+    public String getUsername() {
+        return username;
+    }
 
-	// Constructors
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	/** default constructor */
-	public User() {
-	}
+    @Basic
+    @Column(name = "password", nullable = false, length = 32)
+    public String getPassword() {
+        return password;
+    }
 
-	/** minimal constructor */
-	public User(String id, String username, String password) {
-		this.id = id;
-		this.username = username;
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/** full constructor */
-	public User(String id, String username, String password, Double salary,
-			Date birthday, String gender, String station, String telephone,
-			String remark) {
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.salary = salary;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.station = station;
-		this.telephone = telephone;
-		this.remark = remark;
-	}
+    @Basic
+    @Column(name = "salary", nullable = true, precision = 0)
+    public Double getSalary() {
+        return salary;
+    }
 
-	// Property accessors
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
 
-	public String getId() {
-		return this.id;
-	}
+    @Basic
+    @Column(name = "birthday", nullable = true)
+    public Date getBirthday() {
+        return birthday;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
-	public String getUsername() {
-		return this.username;
-	}
+    @Basic
+    @Column(name = "gender", nullable = true, length = 10)
+    public String getGender() {
+        return gender;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public String getPassword() {
-		return this.password;
-	}
+    @Basic
+    @Column(name = "station", nullable = true, length = 40)
+    public String getStation() {
+        return station;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setStation(String station) {
+        this.station = station;
+    }
 
-	public Double getSalary() {
-		return this.salary;
-	}
+    @Basic
+    @Column(name = "telephone", nullable = true, length = 11)
+    public String getTelephone() {
+        return telephone;
+    }
 
-	public void setSalary(Double salary) {
-		this.salary = salary;
-	}
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
-	public Date getBirthday() {
-		return this.birthday;
-	}
+    @Basic
+    @Column(name = "remark", nullable = true, length = 255)
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public String getGender() {
-		return this.gender;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+        User user = (User) o;
 
-	public String getStation() {
-		return this.station;
-	}
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (salary != null ? !salary.equals(user.salary) : user.salary != null) return false;
+        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
+        if (gender != null ? !gender.equals(user.gender) : user.gender != null) return false;
+        if (station != null ? !station.equals(user.station) : user.station != null) return false;
+        if (telephone != null ? !telephone.equals(user.telephone) : user.telephone != null) return false;
+        if (remark != null ? !remark.equals(user.remark) : user.remark != null) return false;
 
-	public void setStation(String station) {
-		this.station = station;
-	}
+        return true;
+    }
 
-	public String getTelephone() {
-		return this.telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
-
-	public String getRemark() {
-		return this.remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (salary != null ? salary.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (station != null ? station.hashCode() : 0);
+        result = 31 * result + (telephone != null ? telephone.hashCode() : 0);
+        result = 31 * result + (remark != null ? remark.hashCode() : 0);
+        return result;
+    }
 }

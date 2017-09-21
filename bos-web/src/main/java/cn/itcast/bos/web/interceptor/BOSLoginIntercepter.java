@@ -1,12 +1,9 @@
 package cn.itcast.bos.web.interceptor;
 
 import cn.itcast.bos.domain.User;
-import cn.itcast.bos.utils.BOSUtils;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 import org.apache.struts2.ServletActionContext;
-
-import javax.servlet.ServletContext;
 
 public class BOSLoginIntercepter extends MethodFilterInterceptor {
     @Override

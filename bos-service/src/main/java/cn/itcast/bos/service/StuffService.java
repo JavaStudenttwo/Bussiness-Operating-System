@@ -8,4 +8,6 @@ import cn.itcast.bos.domain.TStuff;
 public interface StuffService {
 
     void addStuff(TStuff model);
+
+
 }

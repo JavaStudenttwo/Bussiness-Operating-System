@@ -1,14 +1,10 @@
 package cn.itcast.bos.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-/**
- * Created by 13718 on 2017/9/10.
- */
 @Entity
 @Table(name = "t_stuff", schema = "bos")
-public class TStuff implements Serializable {
+public class TStuff {
     private String id;
     private String name;
     private Integer telephone;
@@ -18,7 +14,7 @@ public class TStuff implements Serializable {
     private String station;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, length = 32)
     public String getId() {
         return id;
     }
@@ -28,7 +24,7 @@ public class TStuff implements Serializable {
     }
 
     @Basic
-    @Column(name = "name")
+    @Column(name = "name", nullable = true, length = 20)
     public String getName() {
         return name;
     }
@@ -38,7 +34,7 @@ public class TStuff implements Serializable {
     }
 
     @Basic
-    @Column(name = "telephone")
+    @Column(name = "telephone", nullable = true)
     public Integer getTelephone() {
         return telephone;
     }
@@ -48,7 +44,7 @@ public class TStuff implements Serializable {
     }
 
     @Basic
-    @Column(name = "haspda")
+    @Column(name = "haspda", nullable = true)
     public Integer getHaspda() {
         return haspda;
     }
@@ -58,7 +54,7 @@ public class TStuff implements Serializable {
     }
 
     @Basic
-    @Column(name = "daltag")
+    @Column(name = "daltag", nullable = true)
     public Integer getDaltag() {
         return daltag;
     }
@@ -68,7 +64,7 @@ public class TStuff implements Serializable {
     }
 
     @Basic
-    @Column(name = "standard")
+    @Column(name = "standard", nullable = true, length = 20)
     public String getStandard() {
         return standard;
     }
@@ -78,7 +74,7 @@ public class TStuff implements Serializable {
     }
 
     @Basic
-    @Column(name = "station")
+    @Column(name = "station", nullable = true, length = 20)
     public String getStation() {
         return station;
     }

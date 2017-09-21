@@ -34,13 +34,17 @@
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
-			</props>
+				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/BOS</prop>
+				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+            </props>
 		</property>
 		<!-- 注入hibernate的映射文件 -->
 		<property name="mappingLocations">
 			<list>
-				<value>classpath:cn/itcast/bos/domain/*.xml</value>
-			</list>
+				<value>classpath:cn/itcast/bos/domain/mapper/*.xml</value>
+				<value>classpath:cn/itcast/bos/domain/mapper/TStuff.hbm.xml</value>
+                <value>classpath:cn/itcast/bos/domain/mapper/User.hbm.xml</value>
+            </list>
 		</property>
 	</bean>
 	

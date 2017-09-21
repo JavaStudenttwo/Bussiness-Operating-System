@@ -12,7 +12,7 @@
 
 		<interceptors>
 			<!-- 注册自定义拦截器 -->
-			<interceptor name="bosLoginInterceptor" class="com.itheima.bos.web.interceptor.BOSLoginInterceptor">
+			<interceptor name="bosLoginInterceptor" class="cn.itcast.bos.web.interceptor.BOSLoginIntercepter">
 				<!-- 指定哪些方法不需要拦截 -->
 				<param name="excludeMethods">login</param>
 			</interceptor>

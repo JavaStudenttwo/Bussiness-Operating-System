@@ -55,10 +55,6 @@ public class UserAction extends BaseAction<User> {
 		}
 	}
 
-
-
-
-
 	
 	/**
 	 * 用户注销
@@ -71,15 +67,15 @@ public class UserAction extends BaseAction<User> {
 	/**
 	 * 修改密码
 	 */
-	public String editPassword() throws IOException {
+	public String editPsw() throws IOException {
 		String f = "1";
 		User user = BOSUtils.getLoginUser();
 
-		userService.editPassword(user.getId(),model.getPassword());
+		userService.editPsw(user.getId(),model.getPassword());
 
 		ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
 		ServletActionContext.getResponse().getWriter().print(f);
-		return NONE;
+		return HOME;
 	}
 
 
