@@ -139,7 +139,7 @@
 			pageList: [30,50,100],
 			pagination : true,
 			toolbar : toolbar,
-			url : "json/staff.json",
+			url : "${pageContext.request.contextPath}/staffAction_list.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -219,7 +219,7 @@
 					<tr>
 						<td>取派标准</td>
 						<td>
-							<input type="text" name="standard" class="easyui-validatebox" required="true"/>  
+							<input type="text" name="standard" class="easyui-validatebox" required="true"/>
 						</td>
 					</tr>
 					</table>

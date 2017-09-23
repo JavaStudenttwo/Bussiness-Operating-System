@@ -2,10 +2,13 @@ package cn.itcast.bos.service.impl;
 
 import cn.itcast.bos.dao.StuffDao;
 import cn.itcast.bos.dao.impl.StuffDaoImpl;
+import cn.itcast.bos.domain.PageBean;
 import cn.itcast.bos.domain.TStuff;
 import cn.itcast.bos.service.StuffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -13,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 
 @Service
-@Transactional
+@Transactional(readOnly=true)
 public class StuffServiceImpl implements StuffService {
 
     @Autowired
@@ -24,8 +27,16 @@ public class StuffServiceImpl implements StuffService {
      * @param model
      */
     @Override
+    @Transactional(isolation= Isolation.DEFAULT,propagation= Propagation.REQUIRED,readOnly=false)
     public void addStuff(TStuff model) {
 
         stuffDao.save(model);
     }
+
+    @Override
+    public void pageQuery(PageBean pageBean) {
+
+    }
+
+
 }

@@ -1,11 +1,12 @@
 package cn.itcast.bos.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "t_user", schema = "bos")
-public class User {
+public class User implements Serializable {
     private String id;
     private String username;
     private String password;

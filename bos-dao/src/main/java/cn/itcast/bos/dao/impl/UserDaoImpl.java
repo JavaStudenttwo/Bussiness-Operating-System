@@ -23,29 +23,13 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 		return null;
 	}
 
+	@Override
+	public void beanUpdate(String password, String id) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		String hql = "FROM User u WHERE u.id = ?";
+		User user = (User) this.getHibernateTemplate().find(hql,id);
+		user.setPassword(password);
+	}
 
 
 }

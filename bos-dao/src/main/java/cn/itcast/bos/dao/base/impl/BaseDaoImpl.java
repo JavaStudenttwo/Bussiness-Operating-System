@@ -3,14 +3,21 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import javax.annotation.Resource;
 
 import cn.itcast.bos.dao.base.IBaseDao;
+import cn.itcast.bos.domain.PageBean;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 
 /**
@@ -61,13 +68,94 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	public void executeUpdate(String queryName, Object... objects) {
 		Session session = this.getSessionFactory().getCurrentSession();
 		Query query = session.getNamedQuery(queryName);
-		int i = 0;
+		int i = 1;
 		for (Object object:objects){
 			query.setParameter(i++,object);
 		}
 		query.executeUpdate();
 	}
 
+
+
+
+	/**数据库查询方法*/
+	public List<T> findCollectionByConditionNoPage(String condition,
+												   final Object[] params, Map<String, String> orderby) {
+		/**
+		 * 1.先写出hql语句的基本内容
+		 */
+		String hql = "from "+entityClass.getSimpleName()+" o where 1=1 ";
+		/**
+		 * 2.添加查询结果的排序约束
+		 * 将Map集合中存放的字段排序，组织成ORDER BY o.textDate ASC,o.textName DESC
+		 */
+		String orderbyCondition = this.orderbyHql(orderby);
+		/**
+		 * 3.将各个语句结合拼装成最终的hql语句
+		 */
+		final String finalHql = hql + condition + orderbyCondition;
+		//查询，执行hql语句
+		List<T> list = (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session)
+					throws HibernateException {
+				Query query = session.createQuery(finalHql);
+				if(params!=null && params.length>0){
+					for(int i=0;i<params.length;i++){
+						query.setParameter(i, params[i]);
+					}
+				}
+				return query.list();
+			}
+
+		});
+		return list;
+	}
+
+	/**
+	 * 将Map集合中存放的字段排序，组织成
+	 *  ORDER BY o.textDate ASC,o.textName DESC
+	 *
+	 * map集合orderby内，key值为属性名，例如 o.textDate
+	 *                 value值为排序方式，例如 DESC(降序)
+	 *                 加起来组成的语句 o.textDate DESC 的含义是按textDate降序
+	 *
+	 */
+	private String orderbyHql(Map<String, String> orderby) {
+		StringBuffer buffer = new StringBuffer("");
+		if(orderby!=null && orderby.size()>0){
+			buffer.append(" ORDER BY ");
+			for(Map.Entry<String, String> map:orderby.entrySet()){
+				buffer.append(map.getKey()+" "+map.getValue()+",");
+			}
+			//在循环后，删除最后一个逗号
+			buffer.deleteCharAt(buffer.length()-1);
+		}
+		return buffer.toString();
+	}
+
+
+	public void pageQuery(PageBean pageBean){
+		int currentPage = pageBean.getCurrentPage();
+		int pageSize = pageBean.getPageSize();
+		DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
+
+		detachedCriteria.setProjection(Projections.rowCount());
+		List<Long> countList = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
+
+		Long count = countList.get(0);
+		pageBean.setTotal(count.intValue());
+
+		detachedCriteria.setProjection(null);
+		int firstResult = (currentPage-1)*pageSize;
+		int maxResults = pageSize;
+		List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria,firstResult,maxResults);
+		pageBean.setRows(rows);
+
+
+
+
+
+	}
 
 
 

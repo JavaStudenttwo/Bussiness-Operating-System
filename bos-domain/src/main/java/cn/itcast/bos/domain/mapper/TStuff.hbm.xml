@@ -7,6 +7,7 @@
     <class name="cn.itcast.bos.domain.TStuff" table="t_stuff" schema="bos">
         <id name="id">
             <column name="id" sql-type="varchar(32)" length="32"/>
+            <generator class="uuid" />
         </id>
         <property name="name">
             <column name="name" sql-type="varchar(20)" length="20" not-null="true"/>
