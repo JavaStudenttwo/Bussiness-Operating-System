@@ -8,6 +8,8 @@ import cn.itcast.bos.domain.TStuff;
  */
 public interface StuffService {
 
+    public static final String SERVICE_NAEM = "cn.itcast.bos.service.impl.StuffServiceImpl";
+
     void addStuff(TStuff model);
 
     void pageQuery(PageBean pageBean);

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by 13718 on 2017/9/10.
  */
 
-@Service
+@Service(StuffService.SERVICE_NAEM)
 @Transactional(readOnly=true)
 public class StuffServiceImpl implements StuffService {
 
@@ -36,6 +36,7 @@ public class StuffServiceImpl implements StuffService {
     @Override
     public void pageQuery(PageBean pageBean) {
 
+        stuffDao.pageQuery(pageBean);
     }
 
 

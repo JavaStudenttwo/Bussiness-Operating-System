@@ -139,7 +139,8 @@
 			pageList: [30,50,100],
 			pagination : true,
 			toolbar : toolbar,
-			url : "${pageContext.request.contextPath}/staffAction_list.action",
+//            sendstuffAction_
+			url : "${pageContext.request.contextPath}/sendstuffAction_list.action",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -177,6 +178,7 @@
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
 	<div region="center" border="false">
+		//使用了easyUI的datagrid样式
     	<table id="grid"></table>
 	</div>
 	<div class="easyui-window" title="啊啊啊啊啊" id="addStaffWindow" collapsible="false"

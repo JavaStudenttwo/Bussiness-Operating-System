@@ -2,8 +2,11 @@ package cn.itcast.bos.domain;
 
 import org.hibernate.criterion.DetachedCriteria;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.List;
 
+@Entity
 public class PageBean {
 
     private int currentPage;
@@ -50,5 +53,18 @@ public class PageBean {
 
     public void setRows(List rows) {
         this.rows = rows;
+    }
+
+
+
+    private String id;
+
+    @Id
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

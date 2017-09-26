@@ -24,6 +24,7 @@ import java.io.IOException;
 public class SendstuffAction extends BaseAction<TStuff>{
 
 
+    //使用属性驱动的方式从页面获取page和rows
     int page;
     int rows;
 
@@ -53,6 +54,7 @@ public class SendstuffAction extends BaseAction<TStuff>{
     }
 
     public String list() throws IOException {
+
         PageBean pageBean = new PageBean();
         pageBean.setCurrentPage(page);
         pageBean.setPageSize(rows);

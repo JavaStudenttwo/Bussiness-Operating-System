@@ -1,5 +1,7 @@
 package cn.itcast.bos.dao.base;
 
+import cn.itcast.bos.domain.PageBean;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -21,4 +23,5 @@ public interface IBaseDao<T> {
 
 	List<T> findCollectionByConditionNoPage(String condition, Object[] params, Map<String, String> orderby);
 
+	public void pageQuery(PageBean pageBean);
 }

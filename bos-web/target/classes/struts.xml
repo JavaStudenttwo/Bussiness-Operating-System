@@ -45,6 +45,7 @@
 		<!--取派员管理-->
 		<action name="sendstuffAction_*" class="sendstuffAction" method="{1}">
 			<result name="add">/WEB-INF/pages/base/staff.jsp</result>
+			<!--staffAction_list-->
 			<result name="list">/WEB-INF/pages/base/staff.jsp</result>
 		</action>
 
