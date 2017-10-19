@@ -6,28 +6,38 @@ import java.lang.reflect.Type;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 /**
- * 表现层通用实现
- * @author zhaoqx
+ * @Date 2017/10/10 14:33
+ * @Author CycloneKid sk18810356@gmail.com
+ * @PackageName: cn.itcast.bos.web.action.base
+ * @ClassName: BaseAction
+ * @Description: 抽取了和模型驱动相关的操作
  *
- * @param <T>
  */
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
+
 	public static final String HOME = "home";
 	
-	//模型对象
+	/**模型对象*/
 	protected T model;
 	public T getModel() {
 		return model;
 	}
-	
-	//在构造方法中动态获取实体类型，通过反射创建model对象
+
+	/**
+	 * @Date 2017/10/10 14:33
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @MethodName: BaseAction
+	 * @Params: []
+	 * @ReturnType:
+	 * @Description: 构造方法，每个继承该类的的对象都会执行该方法
+	 *
+	 */
 	public BaseAction() {
 		ParameterizedType genericSuperclass = (ParameterizedType) this.getClass().getGenericSuperclass();
-		//获得BaseAction上声明的泛型数组
-
+		/**获得泛型类*/
 		Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
 		Class<T> entityClass = (Class<T>) actualTypeArguments[0];
-		//通过反射创建对象
+		/**创建泛型类的实例*/
 		try {
 			model = entityClass.newInstance();
 		} catch (InstantiationException e) {

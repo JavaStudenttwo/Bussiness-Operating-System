@@ -4,6 +4,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @Date 2017/10/10 14:46
+ * @Author CycloneKid sk18810356@gmail.com
+ * @PackageName: cn.itcast.bos.utils
+ * @ClassName: MD5Utils
+ * @Description: 密码加密
+ *
+ */
 public class MD5Utils {
 	/**
 	 * 使用md5的算法进行加密
@@ -17,7 +25,8 @@ public class MD5Utils {
 			throw new RuntimeException("没有md5这个算法！");
 		}
 		String md5code = new BigInteger(1, secretBytes).toString(16);// 16进制数字
-		// 如果生成数字未满32位，需要前面补0
+
+		/**如果生成数字未满32位，需要前面补0*/
 		for (int i = 0; i < 32 - md5code.length(); i++) {
 			md5code = "0" + md5code;
 		}

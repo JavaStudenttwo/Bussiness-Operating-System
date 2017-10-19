@@ -141,6 +141,7 @@
 			toolbar : toolbar,
 //            sendstuffAction_
 			url : "${pageContext.request.contextPath}/sendstuffAction_list.action",
+			<%--url:"${pageContext.request.contextPath}/json/staff.json",--%>
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -178,7 +179,7 @@
 </head>
 <body class="easyui-layout" style="visibility:hidden;">
 	<div region="center" border="false">
-		//使用了easyUI的datagrid样式
+		<%--使用了easyUI的datagrid样式--%>
     	<table id="grid"></table>
 	</div>
 	<div class="easyui-window" title="啊啊啊啊啊" id="addStaffWindow" collapsible="false"

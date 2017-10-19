@@ -3,8 +3,13 @@ package cn.itcast.bos.dao;
 import cn.itcast.bos.dao.base.IBaseDao;
 import cn.itcast.bos.domain.TStuff;
 
-/**
- * Created by 13718 on 2017/9/10.
+/** 
+ * @Date 2017/10/10 15:20
+ * @Author CycloneKid sk18810356@gmail.com 
+ * @PackageName: cn.itcast.bos.dao
+ * @ClassName: StuffDao 
+ * @Description: 
+ *
  */
 public interface StuffDao extends IBaseDao<TStuff>{
 

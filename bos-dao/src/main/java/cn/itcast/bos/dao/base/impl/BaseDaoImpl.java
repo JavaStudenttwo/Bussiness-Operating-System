@@ -19,26 +19,39 @@ import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 /**
- * 持久层通用实现
- * @author zhaoqx
+ * @Date 2017/10/10 14:54
+ * @Author CycloneKid sk18810356@gmail.com
+ * @PackageName: cn.itcast.bos.dao.base.impl
+ * @ClassName: BaseDaoImpl
+ * @Description: 抽取了基本的增删改查方法
  *
- * @param <T>
  */
+@Repository
 public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
-	//代表的是某个实体的类型
+	/**代表的是某个实体的类型*/
 	private Class<T> entityClass;
-	
-	@Resource//根据类型注入spring工厂中的会话工厂对象sessionFactory
+
+	/**根据类型注入spring工厂中的会话工厂对象sessionFactory*/
+	@Resource
 	public void setMySessionFactory(SessionFactory sessionFactory){
 		super.setSessionFactory(sessionFactory);
 	}
-	
-	//在父类（BaseDaoImpl）的构造方法中动态获得entityClass
+
+	/**
+	 * @Date 2017/10/10 14:55
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @MethodName: BaseDaoImpl
+	 * @Params: []
+	 * @ReturnType:
+	 * @Description: 在父类（BaseDaoImpl）的构造方法中动态获得entityClass
+	 *
+	 *//*
 	public BaseDaoImpl() {
 		ParameterizedType superclass = (ParameterizedType) this.getClass().getGenericSuperclass();
-		//获得父类上声明的泛型数组
+		*//**获得父类上声明的泛型数组*//*
 		Type[] actualTypeArguments = superclass.getActualTypeArguments();
 		entityClass = (Class<T>) actualTypeArguments[0];
 	}
@@ -75,24 +88,21 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		query.executeUpdate();
 	}
 
-
-
-
-	/**数据库查询方法*/
+	*//**数据库查询方法*//*
 	public List<T> findCollectionByConditionNoPage(String condition,
 												   final Object[] params, Map<String, String> orderby) {
-		/**
+		*//**
 		 * 1.先写出hql语句的基本内容
-		 */
+		 *//*
 		String hql = "from "+entityClass.getSimpleName()+" o where 1=1 ";
-		/**
+		*//**
 		 * 2.添加查询结果的排序约束
 		 * 将Map集合中存放的字段排序，组织成ORDER BY o.textDate ASC,o.textName DESC
-		 */
+		 *//*
 		String orderbyCondition = this.orderbyHql(orderby);
-		/**
+		*//**
 		 * 3.将各个语句结合拼装成最终的hql语句
-		 */
+		 *//*
 		final String finalHql = hql + condition + orderbyCondition;
 		//查询，执行hql语句
 		List<T> list = (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
@@ -111,7 +121,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		return list;
 	}
 
-	/**
+	*//**
 	 * 将Map集合中存放的字段排序，组织成
 	 *  ORDER BY o.textDate ASC,o.textName DESC
 	 *
@@ -119,7 +129,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 *                 value值为排序方式，例如 DESC(降序)
 	 *                 加起来组成的语句 o.textDate DESC 的含义是按textDate降序
 	 *
-	 */
+	 *//*
 	private String orderbyHql(Map<String, String> orderby) {
 		StringBuffer buffer = new StringBuffer("");
 		if(orderby!=null && orderby.size()>0){
@@ -134,7 +144,17 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	}
 
 
+	*//**
+	 * @Date 2017/10/10 14:56
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @MethodName: pageQuery
+	 * @Params: [pageBean]
+	 * @ReturnType: void
+	 * @Description: 分页查询方法
+	 *
+	 *//*
 	public void pageQuery(PageBean pageBean){
+
 		int currentPage = pageBean.getCurrentPage();
 		int pageSize = pageBean.getPageSize();
 		DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
@@ -152,10 +172,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		pageBean.setRows(rows);
 
 
-
-
-
-	}
+	}*/
 
 
 

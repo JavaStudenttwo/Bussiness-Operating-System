@@ -7,10 +7,16 @@ import cn.itcast.bos.domain.TStuff;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by 13718 on 2017/9/10.
+ * @Date 2017/10/10 14:57
+ * @Author CycloneKid sk18810356@gmail.com
+ * @PackageName: cn.itcast.bos.dao.impl
+ * @ClassName: StuffDaoImpl
+ * @Description: 取派员
+ *
  */
 @Repository
 public class StuffDaoImpl extends BaseDaoImpl<TStuff> implements StuffDao{
+
 
 
 }
