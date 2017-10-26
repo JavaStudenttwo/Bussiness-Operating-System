@@ -40,6 +40,15 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 
 	}
 
+	/**
+	 * @Date 2017/10/22 20:14
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @MethodName: beanUpdate
+	 * @Params: [password, id]
+	 * @ReturnType: void
+	 * @Description: 通过Hibernate的一级缓存更改数据（快照更新）
+	 *
+	 */
 	@Override
 	public void beanUpdate(String password, String id) {
 

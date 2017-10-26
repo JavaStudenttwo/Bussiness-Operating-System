@@ -1,35 +1,32 @@
 package cn.itcast.bos.dao.util;
 
-import cn.itcast.bos.dao.StuffDao;
-import cn.itcast.bos.dao.impl.StuffDaoImpl;
 import cn.itcast.bos.data.JsonTransform;
 import cn.itcast.bos.domain.TStuff;
+import cn.itcast.bos.utils.HibernateUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.junit.Test;
 
-import javax.net.ssl.SSLEngineResult;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
+/**
+ * @Date 2017/10/18 19:20
+ * @Author CycloneKid sk18810356@gmail.com
+ * @PackageName: cn.itcast.bos.dao.util
+ * @ClassName: AddDataToDB
+ * @Description:
+ *
+ */
 public class AddDataToDB {
-
-    /**加载配置文件*/
-    org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration().configure();
-    /**创建一个SessionFactory类型的对象*/
-    SessionFactory sessionFactory = configuration.buildSessionFactory();
 
     @Test
     public void doAdd() throws InvocationTargetException, IllegalAccessException {
 
-        /**使用sessionFactory对象创建session对象*/
-        Session session = sessionFactory.openSession();
-        /**开启事务*/
+        Session session = HibernateUtils.getSession();
         Transaction transaction = session.beginTransaction();
-
-//        StuffDao stuffDao = new StuffDaoImpl();
 
         JsonTransform<Map<String,String>> jsonTransform = new JsonTransform<Map<String,String>>();
         String json = "[\n" +
@@ -66,7 +63,6 @@ public class AddDataToDB {
                 "\t]";
         List<Map<String,String>> list = jsonTransform.transformForList(json);
 
-
         for (Map<String,String> map: list ){
 
             TStuff tStuff = new TStuff();
@@ -92,7 +88,7 @@ public class AddDataToDB {
 */
 
         transaction.commit();
-        session.close();
+        HibernateUtils.closeSession(session);
 
     }
 
