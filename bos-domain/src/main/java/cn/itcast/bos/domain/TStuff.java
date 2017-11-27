@@ -113,4 +113,17 @@ public class TStuff implements Serializable {
         result = 31 * result + (station != null ? station.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "TStuff{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", telephone=" + telephone +
+                ", haspda=" + haspda +
+                ", daltag=" + daltag +
+                ", standard='" + standard + '\'' +
+                ", station='" + station + '\'' +
+                '}';
+    }
 }

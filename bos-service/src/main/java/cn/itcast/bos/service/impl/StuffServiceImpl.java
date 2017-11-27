@@ -1,15 +1,18 @@
 package cn.itcast.bos.service.impl;
 
-import cn.itcast.bos.dao.StuffDao;
+import cn.itcast.bos.dao.IStuffDao;
 import cn.itcast.bos.dao.impl.StuffDaoImpl;
 import cn.itcast.bos.domain.PageBean;
 import cn.itcast.bos.domain.TStuff;
 import cn.itcast.bos.service.IStuffService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @Date 2017/10/10 14:49
@@ -24,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StuffServiceImpl implements IStuffService {
 
     @Autowired
-    StuffDao stuffDao = new StuffDaoImpl();
+    IStuffDao stuffDao = new StuffDaoImpl();
 
     /**
      * @Date 2017/10/10 14:49
@@ -38,7 +41,7 @@ public class StuffServiceImpl implements IStuffService {
     @Override
     @Transactional(isolation= Isolation.DEFAULT,propagation= Propagation.REQUIRED,readOnly=false)
     public void addStuff(TStuff model) {
-//        stuffDao.save(model);
+        stuffDao.save(model);
     }
 
     /**
@@ -51,9 +54,11 @@ public class StuffServiceImpl implements IStuffService {
      *
      */
     @Override
-    public void pageQuery(PageBean pageBean) {
+    public PageBean<TStuff> pageQuery(PageBean pageBean) {
 
-//        stuffDao.pageQuery(pageBean);
+        PageBean<TStuff> tStuffPageBean = stuffDao.pageQuery(pageBean);
+
+        return tStuffPageBean;
     }
 
 

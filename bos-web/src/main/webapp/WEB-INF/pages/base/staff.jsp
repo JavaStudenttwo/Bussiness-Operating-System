@@ -139,7 +139,6 @@
 			pageList: [30,50,100],
 			pagination : true,
 			toolbar : toolbar,
-//            sendstuffAction_
 			url : "${pageContext.request.contextPath}/sendstuffAction_list.action",
 			<%--url:"${pageContext.request.contextPath}/json/staff.json",--%>
 			idField : 'id',

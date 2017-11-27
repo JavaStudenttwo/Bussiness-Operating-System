@@ -1,19 +1,26 @@
 package cn.itcast.bos.domain;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class PageBean {
+public class PageBean<T> implements Serializable{
 
+    /**当前页*/
     private int currentPage;
+    /**每页数据量*/
     private int pageSize;
+    /***/
     private DetachedCriteria detachedCriteria;
+    /**总数据量*/
     private int total;
-    private List rows;
+    /**数据*/
+    private List<T> rows;
 
     public int getCurrentPage() {
         return currentPage;
@@ -47,7 +54,7 @@ public class PageBean {
         this.total = total;
     }
 
-    public List getRows() {
+    public List<T> getRows() {
         return rows;
     }
 
@@ -57,13 +64,15 @@ public class PageBean {
 
 
 
-    private String id;
 
+
+
+
+    private String id;
     @Id
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }

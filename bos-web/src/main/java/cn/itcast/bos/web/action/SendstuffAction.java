@@ -48,11 +48,11 @@ public class SendstuffAction extends BaseAction<TStuff>{
     }
 
     @Autowired
-    IStuffService IStuffService = new StuffServiceImpl();
+    IStuffService iStuffService = new StuffServiceImpl();
 
     /**添加取派员*/
     public String addStuff(){
-        IStuffService.addStuff(model);
+        iStuffService.addStuff(model);
         return "ADD";
     }
 
@@ -71,9 +71,10 @@ public class SendstuffAction extends BaseAction<TStuff>{
         pageBean.setCurrentPage(page);
         pageBean.setPageSize(rows);
 
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(TStuff.class);
+        /*DetachedCriteria detachedCriteria = DetachedCriteria.forClass(TStuff.class);
         pageBean.setDetachedCriteria(detachedCriteria);
-        IStuffService.pageQuery(pageBean);
+        IStuffService.pageQuery(pageBean);*/
+        iStuffService.pageQuery(pageBean);
 
         Gson gson = new Gson();
         String json = gson.toJson(pageBean.getRows());
