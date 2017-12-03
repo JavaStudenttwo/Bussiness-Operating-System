@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IBaseDao<T> {
 
-    /*public void save(T entity);
+    public void save(T entity);
 
 	public void delete(T entity);
 
@@ -30,5 +30,5 @@ public interface IBaseDao<T> {
 
 	List<T> findCollectionByConditionNoPage(String condition, Object[] params, Map<String, String> orderby);
 
-	public void pageQuery(PageBean pageBean);*/
+	//public void pageQuery(PageBean pageBean);
 }

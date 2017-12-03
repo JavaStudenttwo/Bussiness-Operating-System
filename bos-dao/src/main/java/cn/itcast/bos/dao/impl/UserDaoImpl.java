@@ -5,6 +5,7 @@ import java.util.List;
 import cn.itcast.bos.dao.IUserDao;
 import cn.itcast.bos.dao.base.impl.BaseDaoImpl;
 import cn.itcast.bos.domain.User;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @Description:
  *
  */
-@Repository
+@Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 
 	/**
@@ -27,11 +28,12 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 	 * @Description:
 	 *
 	 */
+
 	public User findUserByUsernameAndPassword(String username, String password) {
 
 		String hql = "FROM User u WHERE u.username = ? AND u.password = ?";
 
-		List<User> list = (List<User>) this.getHibernateTemplate().find(hql, username,password);
+		List<User> list = (List<User>) super.getHibernateTemplate().find(hql, username,password);
 
 		if(list != null && list.size() > 0){
 			return list.get(0);

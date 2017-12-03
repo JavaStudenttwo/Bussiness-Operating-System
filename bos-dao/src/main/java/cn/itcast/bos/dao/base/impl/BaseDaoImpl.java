@@ -26,7 +26,7 @@ import org.springframework.stereotype.Repository;
  * @Author CycloneKid sk18810356@gmail.com
  * @PackageName: cn.itcast.bos.dao.base.impl
  * @ClassName: BaseDaoImpl
- * @Description: 抽取了基本的增删改查方法
+ * @Description: 抽取了基本的操作数据库的方法
  *
  */
 @Repository
@@ -34,7 +34,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	/**代表的是某个实体的类型*/
 	private Class<T> entityClass;
 
-	/**根据类型注入spring工厂中的会话工厂对象sessionFactory*/
+	/**使用注解则必须将父类HibernateDaoSupport中的SessionFactory注入*/
 	@Resource
 	public void setMySessionFactory(SessionFactory sessionFactory){
 		super.setSessionFactory(sessionFactory);
@@ -48,10 +48,10 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 * @ReturnType:
 	 * @Description: 在父类（BaseDaoImpl）的构造方法中动态获得entityClass
 	 *
-	 *//*
+	 */
 	public BaseDaoImpl() {
 		ParameterizedType superclass = (ParameterizedType) this.getClass().getGenericSuperclass();
-		*//**获得父类上声明的泛型数组*//*
+		/**获得父类上声明的泛型数组*/
 		Type[] actualTypeArguments = superclass.getActualTypeArguments();
 		entityClass = (Class<T>) actualTypeArguments[0];
 	}
@@ -72,13 +72,31 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		return this.getHibernateTemplate().get(entityClass, id);
 	}
 
+
+	/**
+	 * @Date 2017/12/3 23:18
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @PackageName: cn.itcast.bos.dao.base.impl
+	 * @ClassName: BaseDaoImpl
+	 * @Description:
+	 *
+	 */
 	public List<T> findAll() {
 		String hql = "FROM " + entityClass.getSimpleName();
 		return (List<T>) this.getHibernateTemplate().find(hql);
 	}
 
+	/**
+	 * @Date 2017/12/3 23:18
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @PackageName: cn.itcast.bos.dao.base.impl
+	 * @ClassName: BaseDaoImpl
+	 * @Description:
+	 *
+	 */
 	@Override
 	public void executeUpdate(String queryName, Object... objects) {
+
 		Session session = this.getSessionFactory().getCurrentSession();
 		Query query = session.getNamedQuery(queryName);
 		int i = 1;
@@ -88,21 +106,22 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		query.executeUpdate();
 	}
 
-	*//**数据库查询方法*//*
+
+	/**数据库查询方法*/
 	public List<T> findCollectionByConditionNoPage(String condition,
-												   final Object[] params, Map<String, String> orderby) {
-		*//**
+					final Object[] params, Map<String, String> orderby) {
+		/**
 		 * 1.先写出hql语句的基本内容
-		 *//*
+		 */
 		String hql = "from "+entityClass.getSimpleName()+" o where 1=1 ";
-		*//**
+		/**
 		 * 2.添加查询结果的排序约束
 		 * 将Map集合中存放的字段排序，组织成ORDER BY o.textDate ASC,o.textName DESC
-		 *//*
+		 */
 		String orderbyCondition = this.orderbyHql(orderby);
-		*//**
+		/**
 		 * 3.将各个语句结合拼装成最终的hql语句
-		 *//*
+		 */
 		final String finalHql = hql + condition + orderbyCondition;
 		//查询，执行hql语句
 		List<T> list = (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
@@ -121,30 +140,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		return list;
 	}
 
-	*//**
-	 * 将Map集合中存放的字段排序，组织成
-	 *  ORDER BY o.textDate ASC,o.textName DESC
-	 *
-	 * map集合orderby内，key值为属性名，例如 o.textDate
-	 *                 value值为排序方式，例如 DESC(降序)
-	 *                 加起来组成的语句 o.textDate DESC 的含义是按textDate降序
-	 *
-	 *//*
-	private String orderbyHql(Map<String, String> orderby) {
-		StringBuffer buffer = new StringBuffer("");
-		if(orderby!=null && orderby.size()>0){
-			buffer.append(" ORDER BY ");
-			for(Map.Entry<String, String> map:orderby.entrySet()){
-				buffer.append(map.getKey()+" "+map.getValue()+",");
-			}
-			//在循环后，删除最后一个逗号
-			buffer.deleteCharAt(buffer.length()-1);
-		}
-		return buffer.toString();
-	}
-
-
-	*//**
+	/**
 	 * @Date 2017/10/10 14:56
 	 * @Author CycloneKid sk18810356@gmail.com
 	 * @MethodName: pageQuery
@@ -152,7 +148,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 * @ReturnType: void
 	 * @Description: 分页查询方法
 	 *
-	 *//*
+	 */
 	public void pageQuery(PageBean pageBean){
 
 		int currentPage = pageBean.getCurrentPage();
@@ -172,9 +168,36 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		pageBean.setRows(rows);
 
 
-	}*/
+	}
 
+	/**
+	 * @Date 2017/12/3 23:16
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @PackageName: cn.itcast.bos.dao.base.impl
+	 * @ClassName: BaseDaoImpl
+	 * @Description: 功能方法
+	 *
+ 	 * 将Map集合中存放的字段排序，组织成
+	 * ORDER BY o.textDate ASC,o.textName DESC
+	 *
+	 * map集合orderby内，key值为属性名，例如 o.textDate
+	 *                 value值为排序方式，例如 DESC(降序)
+	 *                 加起来组成的语句 o.textDate DESC 的含义是按textDate降序
+	 *
+	 */
+	private String orderbyHql(Map<String, String> orderby) {
 
+		StringBuffer buffer = new StringBuffer("");
+		if(orderby!=null && orderby.size()>0){
+			buffer.append(" ORDER BY ");
+			for(Map.Entry<String, String> map:orderby.entrySet()){
+				buffer.append(map.getKey()+" "+map.getValue()+",");
+			}
+			/**在循环后，删除最后一个逗号*/
+			buffer.deleteCharAt(buffer.length()-1);
+		}
+		return buffer.toString();
+	}
 
 
 

@@ -34,8 +34,4 @@
         </property>
     </class>
 
-    <query name="user.editpassword">
-        UPDATE User SET password = ? WHERE id = ?
-    </query>
-
 </hibernate-mapping>

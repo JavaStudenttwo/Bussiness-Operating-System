@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -31,7 +32,7 @@ public class UserAction extends BaseAction<User> {
 		this.checkcode = checkcode;
 	}
 	
-	@Autowired
+	@Resource(name = "userService")
 	private IUserService userService;
 
 	/**
@@ -98,6 +99,20 @@ public class UserAction extends BaseAction<User> {
 		ServletActionContext.getResponse().getWriter().print(f);
 		return HOME;
 
+	}
+	/**
+	 * @Date 2017/12/3 22:37
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @PackageName: cn.itcast.bos.web.action
+	 * @ClassName: UserAction
+	 * @Description: 测试方法
+	 *
+	 */
+	public User junitTest(){
+		User user = new User();
+		user.setUsername("zhangsan");
+		user.setPassword("llss");
+		return userService.junitTest(user);
 	}
 
 

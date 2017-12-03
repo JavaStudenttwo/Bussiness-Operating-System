@@ -140,4 +140,19 @@ public class User implements Serializable {
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salary=" + salary +
+                ", birthday=" + birthday +
+                ", gender='" + gender + '\'' +
+                ", station='" + station + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

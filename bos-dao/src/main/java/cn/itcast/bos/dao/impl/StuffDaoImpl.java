@@ -24,37 +24,6 @@ import java.util.List;
 @Repository
 public class StuffDaoImpl extends BaseDaoImpl<TStuff> implements IStuffDao {
 
-    /**
-     * @Date 2017/10/19 16:13
-     * @Author CycloneKid sk18810356@gmail.com
-     * @MethodName: pageQuery
-     * @Params: [pageBean]
-     * @ReturnType: void
-     * @Description:
-     *
-     */
-    @Override
-    public PageBean pageQuery(PageBean<TStuff> pageBean) {
-
-        int currentPage = pageBean.getCurrentPage();
-        int pageSize =  pageBean.getPageSize();
-        DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
-
-        detachedCriteria.setProjection(Projections.rowCount());
-        List<Long> countList = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
-
-        Long count = countList.get(0);
-        pageBean.setTotal(count.intValue());
-
-        detachedCriteria.setProjection(null);
-        int firstResult = (currentPage-1)*pageSize;
-        int maxResults = pageSize;
-        List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria,firstResult,maxResults);
-        pageBean.setRows(rows);
-
-        return pageBean;
-    }
-
     @Override
     public void save(TStuff tStuff) {
 

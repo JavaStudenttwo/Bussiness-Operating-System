@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+
 /**
  * @Date 2017/10/10 14:50
  * @Author CycloneKid sk18810356@gmail.com
@@ -18,11 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @Description: 用户相关业务处理
  *
  */
-@Service
+@Service("userService")
 @Transactional(readOnly=true)
 public class UserServiceImpl implements IUserService {
 
-	@Autowired
+	@Resource(name = "userDao")
 	private IUserDao userDao;
 
 	/**
@@ -56,7 +58,18 @@ public class UserServiceImpl implements IUserService {
 		userDao.beanUpdate(password,id);
 	}
 
-
+	/**
+	 * @Date 2017/12/3 22:32
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @PackageName: cn.itcast.bos.service.impl
+	 * @ClassName: UserServiceImpl
+	 * @Description: 该方法用来测试
+	 *
+	 */
+	@Override
+	public User junitTest(User user) {
+		return userDao.findUserByUsernameAndPassword(user.getUsername(),user.getPassword());
+	}
 
 
 

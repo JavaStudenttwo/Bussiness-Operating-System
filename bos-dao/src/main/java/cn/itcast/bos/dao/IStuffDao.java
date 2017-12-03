@@ -17,8 +17,6 @@ import java.util.List;
  */
 public interface IStuffDao extends IBaseDao<TStuff>{
 
-    PageBean pageQuery(PageBean<TStuff> pageBean);
-
     void save(TStuff tStuff);
 
 }
