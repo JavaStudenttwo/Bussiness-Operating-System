@@ -33,4 +33,6 @@ public interface IBaseDao<T> {
 											Object[] params, Map<String, String> orderby);
 	/**分页查询*/
 	PageBean<T> pageQuery(PageBean pageBean);
+
+	PageBean<T> testPageQuery(PageBean pageBean);
 }

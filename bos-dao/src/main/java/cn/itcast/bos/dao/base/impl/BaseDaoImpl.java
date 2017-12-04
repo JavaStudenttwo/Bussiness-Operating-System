@@ -158,20 +158,42 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	@Override
 	public PageBean<T> pageQuery(PageBean pageBean){
 
+		/**获取查询参数*/
 		int currentPage = pageBean.getCurrentPage();
 		int pageSize = pageBean.getPageSize();
 		DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
 
+		/**查询数据库获取数据总数*/
 		detachedCriteria.setProjection(Projections.rowCount());
 		List<Long> countList = (List<Long>) this.getHibernateTemplate().findByCriteria(detachedCriteria);
 
 		Long count = countList.get(0);
 		pageBean.setTotal(count.intValue());
 
+		/**组织查询参数*/
 		detachedCriteria.setProjection(null);
 		int firstResult = (currentPage-1)*pageSize;
 		int maxResults = pageSize;
 		List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria,firstResult,maxResults);
+		pageBean.setRows(rows);
+
+		return pageBean;
+
+	}
+
+	/**
+	 * @Date 2017/12/4 22:15
+	 * @Author CycloneKid sk18810356@gmail.com
+	 * @PackageName: cn.itcast.bos.dao.base.impl
+	 * @ClassName: BaseDaoImpl
+	 * @Description: 测试detachedCriteria
+	 *
+	 */
+	@Override
+	public PageBean<T> testPageQuery(PageBean pageBean){
+
+		DetachedCriteria detachedCriteria = pageBean.getDetachedCriteria();
+		List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria);
 		pageBean.setRows(rows);
 
 		return pageBean;

@@ -62,5 +62,21 @@ public class StuffServiceImpl implements IStuffService {
         return tStuffPageBean;
     }
 
+    /**
+     * @Date 2017/12/4 22:22
+     * @Author CycloneKid sk18810356@gmail.com
+     * @PackageName: cn.itcast.bos.service.impl
+     * @ClassName: StuffServiceImpl
+     * @Description: 测试
+     *
+     */
+    @Override
+    public PageBean<TStuff> testPageQuery(PageBean pageBean) {
+
+        PageBean<TStuff> tStuffPageBean = stuffDao.testPageQuery(pageBean);
+
+        return tStuffPageBean;
+    }
+
 
 }

@@ -52,9 +52,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 	 *
 	 */
 	@Override
-	public void beanUpdate(User user) {
-		update(user);
-	}
+	public void beanUpdate(User user) { update(user); }
 
 
 }

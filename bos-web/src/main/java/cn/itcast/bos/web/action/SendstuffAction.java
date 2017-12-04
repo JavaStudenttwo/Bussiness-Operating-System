@@ -76,7 +76,7 @@ public class SendstuffAction extends BaseAction<TStuff>{
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(TStuff.class);
         pageBean.setDetachedCriteria(detachedCriteria);
 
-        iStuffService.pageQuery(pageBean);
+        pageBean = iStuffService.pageQuery(pageBean);
 
         /**将查询出的数据转换成json格式返回到前端*/
         Gson gson = new Gson();
@@ -86,7 +86,11 @@ public class SendstuffAction extends BaseAction<TStuff>{
         ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
         ServletActionContext.getResponse().getWriter().print(json);
 
-        return json;
+        /**
+         * 为什么这里返回的是NONE???
+         *
+         * */
+        return NONE;
     }
 
 

@@ -19,4 +19,6 @@ public interface IStuffService {
     void addStuff(TStuff model);
 
     PageBean<TStuff> pageQuery(PageBean pageBean);
+
+    PageBean<TStuff> testPageQuery(PageBean pageBean);
 }
