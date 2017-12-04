@@ -29,7 +29,6 @@ import org.springframework.stereotype.Repository;
  * @Description: 抽取了基本的操作数据库的方法
  *
  */
-@Repository
 public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	/**代表的是某个实体的类型*/
 	private Class<T> entityClass;
@@ -55,19 +54,23 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		Type[] actualTypeArguments = superclass.getActualTypeArguments();
 		entityClass = (Class<T>) actualTypeArguments[0];
 	}
-	
+
+	@Override
 	public void save(T entity) {
 		this.getHibernateTemplate().save(entity);
 	}
-	
+
+	@Override
 	public void delete(T entity) {
 		this.getHibernateTemplate().delete(entity);
 	}
-	
+
+	@Override
 	public void update(T entity) {
 		this.getHibernateTemplate().update(entity);
 	}
 
+	@Override
 	public T findById(Serializable id) {
 		return this.getHibernateTemplate().get(entityClass, id);
 	}
@@ -78,10 +81,12 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 * @Author CycloneKid sk18810356@gmail.com
 	 * @PackageName: cn.itcast.bos.dao.base.impl
 	 * @ClassName: BaseDaoImpl
-	 * @Description:
+	 * @Description: 查询对应表中所有的数据
 	 *
 	 */
+	@Override
 	public List<T> findAll() {
+		/**getSimpleName()方法，返回源代码中给出的底层类的简称。如果底层类是匿名的则返回一个空字符串*/
 		String hql = "FROM " + entityClass.getSimpleName();
 		return (List<T>) this.getHibernateTemplate().find(hql);
 	}
@@ -91,7 +96,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 * @Author CycloneKid sk18810356@gmail.com
 	 * @PackageName: cn.itcast.bos.dao.base.impl
 	 * @ClassName: BaseDaoImpl
-	 * @Description:
+	 * @Description: 修改对应表中数据
 	 *
 	 */
 	@Override
@@ -108,8 +113,9 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 
 
 	/**数据库查询方法*/
+	@Override
 	public List<T> findCollectionByConditionNoPage(String condition,
-					final Object[] params, Map<String, String> orderby) {
+												   final Object[] params, Map<String, String> orderby) {
 		/**
 		 * 1.先写出hql语句的基本内容
 		 */
@@ -123,7 +129,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		 * 3.将各个语句结合拼装成最终的hql语句
 		 */
 		final String finalHql = hql + condition + orderbyCondition;
-		//查询，执行hql语句
+
 		List<T> list = (List<T>) this.getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session)
 					throws HibernateException {
@@ -149,7 +155,8 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 	 * @Description: 分页查询方法
 	 *
 	 */
-	public void pageQuery(PageBean pageBean){
+	@Override
+	public PageBean<T> pageQuery(PageBean pageBean){
 
 		int currentPage = pageBean.getCurrentPage();
 		int pageSize = pageBean.getPageSize();
@@ -167,6 +174,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements IBaseDao<T> {
 		List rows = this.getHibernateTemplate().findByCriteria(detachedCriteria,firstResult,maxResults);
 		pageBean.setRows(rows);
 
+		return pageBean;
 
 	}
 

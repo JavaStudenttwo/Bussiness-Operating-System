@@ -20,7 +20,7 @@ import java.io.IOException;
  * @Description: 处理和用户相关的请求
  *
  */
-@Controller
+@Controller(value = "userAction")
 @Scope("prototype")
 public class UserAction extends BaseAction<User> {
 
@@ -89,31 +89,26 @@ public class UserAction extends BaseAction<User> {
 	 */
 	public String editPsw() throws IOException {
 
-		String f = "1";
-
+		String callback = "OK";
 		User user = (User) ServletActionContext.getRequest().getSession().getAttribute("loginUser");
 
-		userService.editPsw(user.getId(),model.getPassword());
+		user.setPassword(model.getPassword());
+		userService.editPsw(user);
+
+		/**更新session中的用户信息*/
+		ServletActionContext.getRequest().getSession().setAttribute("loginUser",user);
 
 		ServletActionContext.getResponse().setContentType("text/html;charset=utf-8");
-		ServletActionContext.getResponse().getWriter().print(f);
+		/**
+		 * 没有正确的返回AJAX数据，密码修改完后页面不能显示正常信息！！！
+		 *
+		 * */
+		ServletActionContext.getResponse().getWriter().println(callback);
+
 		return HOME;
 
 	}
-	/**
-	 * @Date 2017/12/3 22:37
-	 * @Author CycloneKid sk18810356@gmail.com
-	 * @PackageName: cn.itcast.bos.web.action
-	 * @ClassName: UserAction
-	 * @Description: 测试方法
-	 *
-	 */
-	public User junitTest(){
-		User user = new User();
-		user.setUsername("zhangsan");
-		user.setPassword("llss");
-		return userService.junitTest(user);
-	}
+
 
 
 

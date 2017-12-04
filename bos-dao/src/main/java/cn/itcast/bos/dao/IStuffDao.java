@@ -17,6 +17,5 @@ import java.util.List;
  */
 public interface IStuffDao extends IBaseDao<TStuff>{
 
-    void save(TStuff tStuff);
-
+    void saveStuff(TStuff tStuff);
 }

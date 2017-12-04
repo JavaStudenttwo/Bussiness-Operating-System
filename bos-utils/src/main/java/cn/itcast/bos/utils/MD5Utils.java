@@ -34,7 +34,9 @@ public class MD5Utils {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(md5("123"));
+		System.out.println(md5("1234"));
 	}
+	//123    202cb962ac59075b964b07152d234b70
+	//1234	 81dc9bdb52d04dc20036dbd8313ed055
 
 }

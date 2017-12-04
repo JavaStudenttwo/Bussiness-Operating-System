@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -47,7 +48,7 @@ public class SendstuffAction extends BaseAction<TStuff>{
         this.rows = rows;
     }
 
-    @Autowired
+    @Resource(name = "stuffService")
     IStuffService iStuffService = new StuffServiceImpl();
 
     /**添加取派员*/
@@ -62,7 +63,7 @@ public class SendstuffAction extends BaseAction<TStuff>{
      * @MethodName: list
      * @Params: []
      * @ReturnType: java.lang.String
-     * @Description:13718
+     * @Description: 查询所有取派员的信息
      *
      */
     public String list() throws IOException {
@@ -71,18 +72,21 @@ public class SendstuffAction extends BaseAction<TStuff>{
         pageBean.setCurrentPage(page);
         pageBean.setPageSize(rows);
 
-        /*DetachedCriteria detachedCriteria = DetachedCriteria.forClass(TStuff.class);
+        /**使用Criteria的离线查询方式*/
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(TStuff.class);
         pageBean.setDetachedCriteria(detachedCriteria);
-        IStuffService.pageQuery(pageBean);*/
+
         iStuffService.pageQuery(pageBean);
 
+        /**将查询出的数据转换成json格式返回到前端*/
         Gson gson = new Gson();
         String json = gson.toJson(pageBean.getRows());
 
+        /**返回数据*/
         ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
         ServletActionContext.getResponse().getWriter().print(json);
 
-        return "LIST";
+        return json;
     }
 
 

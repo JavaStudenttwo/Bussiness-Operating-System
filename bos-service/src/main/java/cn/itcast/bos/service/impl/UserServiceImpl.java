@@ -5,6 +5,7 @@ import cn.itcast.bos.domain.User;
 import cn.itcast.bos.service.IUserService;
 import cn.itcast.bos.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
  * @Description: 用户相关业务处理
  *
  */
-@Service("userService")
+@Service(value = "userService")
 @Transactional(readOnly=true)
 public class UserServiceImpl implements IUserService {
 
@@ -36,6 +37,7 @@ public class UserServiceImpl implements IUserService {
 	 * @Description: 用户登录
 	 *
 	 */
+	@Override
 	public User login(User user) {
 		/**使用MD5加密密码*/
 		String password = MD5Utils.md5(user.getPassword());
@@ -53,23 +55,13 @@ public class UserServiceImpl implements IUserService {
 	 */
 	@Override
 	@Transactional(isolation= Isolation.DEFAULT,propagation= Propagation.REQUIRED,readOnly=false)
-	public void editPsw(String id, String password) {
-		password = MD5Utils.md5(password);
-		userDao.beanUpdate(password,id);
+	public void editPsw(User user) {
+
+		user.setPassword(MD5Utils.md5(user.getPassword()));
+
+		userDao.beanUpdate(user);
 	}
 
-	/**
-	 * @Date 2017/12/3 22:32
-	 * @Author CycloneKid sk18810356@gmail.com
-	 * @PackageName: cn.itcast.bos.service.impl
-	 * @ClassName: UserServiceImpl
-	 * @Description: 该方法用来测试
-	 *
-	 */
-	@Override
-	public User junitTest(User user) {
-		return userDao.findUserByUsernameAndPassword(user.getUsername(),user.getPassword());
-	}
 
 
 

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * @Description:
  *
  */
-@Repository("userDao")
+@Repository(value = "userDao")
 public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 
 	/**
@@ -52,14 +52,8 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 	 *
 	 */
 	@Override
-	public void beanUpdate(String password, String id) {
-
-		String hql = "FROM User u WHERE u.id = ?";
-
-		User user = (User) this.getHibernateTemplate().find(hql,id);
-
-		user.setPassword(password);
-
+	public void beanUpdate(User user) {
+		update(user);
 	}
 
 

@@ -16,5 +16,5 @@ public interface IUserDao extends IBaseDao<User> {
 
 	public User findUserByUsernameAndPassword(String username, String password);
 
-    void beanUpdate(String password, String id);
+    void beanUpdate(User user);
 }

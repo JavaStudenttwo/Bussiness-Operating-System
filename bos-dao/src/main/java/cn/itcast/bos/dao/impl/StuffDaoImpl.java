@@ -21,13 +21,11 @@ import java.util.List;
  * @Description: 取派员
  *
  */
-@Repository
+@Repository(value = "stuffDao")
 public class StuffDaoImpl extends BaseDaoImpl<TStuff> implements IStuffDao {
 
     @Override
-    public void save(TStuff tStuff) {
-
-        this.getHibernateTemplate().save(tStuff);
-
+    public void saveStuff(TStuff tStuff) {
+        save(tStuff);
     }
 }

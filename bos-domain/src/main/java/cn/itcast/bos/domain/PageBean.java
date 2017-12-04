@@ -15,7 +15,7 @@ public class PageBean<T> implements Serializable{
     private int currentPage;
     /**每页数据量*/
     private int pageSize;
-    /***/
+    /**Criteria的离线查询类，在控制层或业务层组织查询参数*/
     private DetachedCriteria detachedCriteria;
     /**总数据量*/
     private int total;

@@ -15,7 +15,6 @@ public interface IUserService {
 
 	public User login(User model);
 
-    void editPsw(String id, String password);
+    void editPsw(User user);
 
-    public User junitTest(User user);
 }

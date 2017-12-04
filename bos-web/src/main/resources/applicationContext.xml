@@ -56,9 +56,10 @@
 	<!-- 组件扫描 -->
 	<context:component-scan base-package="cn.itcast.bos"/>
 	
-	<!-- 支持spring注解 -->
+	<!-- 开启spring注解 -->
 	<context:annotation-config/>
-	
+
+	<!-- 开启声明式事务处理 -->
 	<tx:annotation-driven/>
 
 

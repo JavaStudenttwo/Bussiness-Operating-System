@@ -124,7 +124,10 @@
 		align : 'center'
 	} ] ];
 
-
+	/**
+	 * 加载页面时执行此方法
+	 *
+	 * */
 	$(function(){
 		// 先将body隐藏，再显示，不会出现页面刷新效果
 		$("body").css({visibility:"visible"});
@@ -139,8 +142,8 @@
 			pageList: [30,50,100],
 			pagination : true,
 			toolbar : toolbar,
-			url : "${pageContext.request.contextPath}/sendstuffAction_list.action",
-			<%--url:"${pageContext.request.contextPath}/json/staff.json",--%>
+            url : "${pageContext.request.contextPath}/sendstuffAction_list.action",
+            //url:"${pageContext.request.contextPath}/json/staff.json",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow

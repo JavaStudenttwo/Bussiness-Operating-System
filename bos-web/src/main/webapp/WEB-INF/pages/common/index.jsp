@@ -94,15 +94,19 @@
                     var v2 = $("#txtRePass").val();
                     if(v1 == v2){
                         //两次输入一致，发送ajax请求
-                        $.post("userAction_editPsw.action",{"password":v1},function(data){
-                            if(data == '1'){
-                                //修改成功，关闭修改密码窗口
-                                $("#editPwdWindow").window("close");
-                            }else{
-                                //修改密码失败，弹出提示
-                                $.messager.alert("提示信息","密码修改失败！","error");
-                            }
-                        });
+                        $.post(
+                            "userAction_editPsw.action",
+							{"password":v1},
+							function(data){
+								if(data == "OK"){
+									//修改成功，关闭修改密码窗口
+									$("#editPwdWindow").window("close");
+								}else{
+									//修改密码失败，弹出提示
+									$.messager.alert("提示信息","密码修改失败！","error");
+								}
+                        	},
+							"text");
                     }else{
                         //两次输入不一致，弹出错误提示
                         $.messager.alert("提示信息","两次密码输入不一致！","warning");
@@ -208,6 +212,9 @@
 </div>
 <div data-options="region:'west',split:true,title:'菜单导航'"
 	 style="width:200px">
+	<!--
+		为什么west部分的ztree菜单的请求在center部分显示了一个新的页面???
+	-->
 	<div class="easyui-accordion" fit="true" border="false">
 		<div title="基本功能" data-options="iconCls:'icon-mini-add'" style="overflow:auto">
 			<ul id="treeMenu" class="ztree"></ul>
@@ -223,7 +230,7 @@
 			 style="width:100%;height:100%;overflow:hidden">
 			<iframe src="${pageContext.request.contextPath }/page_common_home.action"
 					style="width:100%;height:100%;border:0;"></iframe>
-			<%--				这里显示公告栏、预警信息和代办事宜--%>
+			<%--这里显示公告栏、预警信息和代办事宜--%>
 		</div>
 	</div>
 </div>
@@ -265,7 +272,7 @@
 			</form>
 		</div>
 		<div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-			<a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >确定</a>
+			<a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">确定</a>
 			<a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
 		</div>
 	</div>

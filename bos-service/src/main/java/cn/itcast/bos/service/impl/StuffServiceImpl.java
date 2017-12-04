@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,11 +23,11 @@ import java.util.List;
  * @Description: 取派员相关业务处理
  *
  */
-@Service
+@Service(value = "stuffService")
 @Transactional(readOnly=true)
 public class StuffServiceImpl implements IStuffService {
 
-    @Autowired
+    @Resource(name = "stuffDao")
     IStuffDao stuffDao = new StuffDaoImpl();
 
     /**
