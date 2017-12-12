@@ -52,9 +52,14 @@ public class SendstuffAction extends BaseAction<TStuff>{
     IStuffService iStuffService = new StuffServiceImpl();
 
     /**添加取派员*/
+    /**
+     * 无法正常使用
+     * 报Invalid action class configuration that references an unknown class named异常
+     *
+     */
     public String addStuff(){
         iStuffService.addStuff(model);
-        return "ADD";
+        return NONE;
     }
 
     /**

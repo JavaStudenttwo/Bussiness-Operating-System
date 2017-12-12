@@ -143,7 +143,6 @@
 			pagination : true,
 			toolbar : toolbar,
             url : "${pageContext.request.contextPath}/sendstuffAction_list.action",
-            //url:"${pageContext.request.contextPath}/json/staff.json",
 			idField : 'id',
 			columns : columns,
 			onDblClickRow : doDblClickRow
@@ -169,6 +168,11 @@
 				message:'手机号输入有误！'
 			}
 		})
+
+		//保存按钮
+        $('#save').click(function () {
+            $('#addStuff').submit();
+        });
 		
 	});
 
@@ -176,6 +180,8 @@
 	function doDblClickRow(rowIndex, rowData){
 		alert("双击表格数据...");
 	}
+
+
 
 </script>	
 </head>
@@ -188,16 +194,25 @@
 		 			minimizable="false" maximizable="false" style="top:20px;left:200px">
 		<div region="north" style="height:31px;overflow:hidden;" split="false" border="false" >
 			<div class="datagrid-toolbar">
-				<a id="save" icon="icon-save" href="${pageContext.request.contextPath}/sendstuffAction_addStuff.action" class="easyui-linkbutton" plain="true" >保存</a>
+				<a id="save" icon="icon-save" href="#" class="easyui-linkbutton" plain="true" >保存</a>
 			</div>
 		</div>
 		
 		<div region="center" style="overflow:auto;padding:5px;" border="false">
-			<form>
+			<form id="addStuff" action="sendstuffAction_addStuff.action" method="post">
 				<table class="table-edit" width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">收派员信息</td>
 					</tr>
+					<!--
+						private String id;
+						private String name;
+						private Integer telephone;
+						private Integer haspda;
+						private Integer daltag;
+						private String standard;
+						private String station;
+					-->
 					<!-- TODO 这里完善收派员添加 table -->
 					<tr>
 						<td>取派员编号</td>
@@ -218,7 +233,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-						<input type="checkbox" name="haspda" value="1" />
+						<input type="checkbox" name="hasdaltag" value="true" />
 						是否有PDA</td>
 					</tr>
 					<tr>

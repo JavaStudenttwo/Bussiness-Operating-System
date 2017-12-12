@@ -28,7 +28,6 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements IUserDao {
 	 * @Description:
 	 *
 	 */
-
 	public User findUserByUsernameAndPassword(String username, String password) {
 
 		String hql = "FROM User u WHERE u.username = ? AND u.password = ?";

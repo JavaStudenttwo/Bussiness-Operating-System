@@ -41,8 +41,8 @@ public class StuffServiceImpl implements IStuffService {
      */
     @Override
     @Transactional(isolation= Isolation.DEFAULT,propagation= Propagation.REQUIRED,readOnly=false)
-    public void addStuff(TStuff model) {
-        stuffDao.save(model);
+    public void addStuff(TStuff stuff) {
+        stuffDao.save(stuff);
     }
 
     /**
